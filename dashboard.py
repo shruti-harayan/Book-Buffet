@@ -14,7 +14,12 @@ d = list(range(1,32))
 root=Tk()
 root.title("BOOK BUFFET")
 root.iconbitmap('images\\library.ico')
-root.geometry('1530x800+0+0')
+# Get screen width and height
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+
+# Set the geometry to full screen
+root.geometry(f"{screen_width}x{screen_height}+0+0")
 root.resizable(False, False)
 
 #funtion for displaying date and time
