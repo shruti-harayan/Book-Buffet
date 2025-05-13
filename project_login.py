@@ -1,11 +1,19 @@
 from tkinter import *
 from tkinter import messagebox
 import sqlite3 as sql
-import hashlib
+import hashlib,os,sys
+
+#to convert relative into absolute path
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 root = Tk()
 root.title("BOOK BUFFET")
-root.iconbitmap("images\\library.ico")
+root.iconbitmap(resource_path("images\\library.ico"))
 
 # Get screen width and height
 screen_width = root.winfo_screenwidth()
@@ -13,7 +21,8 @@ screen_height = root.winfo_screenheight()
 root.geometry(f"{screen_width}x{screen_height}+0+0")
 root.resizable(False, False)
 
-img = PhotoImage(file="images\\imgback1.png")  # Background image
+
+img = PhotoImage(file=resource_path("images\\imgback1.png"))  # Background image
 lb0 = Label(root, image=img)
 lb0.place(x=0, y=0, relwidth=1, relheight=1)
 
@@ -22,12 +31,12 @@ frm = Frame(root, width=520, height=350, bg="black")
 frm.place(relx=0.5, rely=0.5, anchor="center")  # Centering the frame
 
 # Admin logo
-logo = PhotoImage(file="images\\admin.png")
+logo = PhotoImage(file=resource_path("images\\admin.png"))
 logolbl = Label(frm, image=logo, bg="black")
 logolbl.grid(row=0, column=0, columnspan=3, pady=15)
 
 # Username label and entry
-unameImg = PhotoImage(file="images\\user.png")
+unameImg = PhotoImage(file=resource_path("images\\user.png"))
 username = Label(frm, image=unameImg, text="ENTER USERNAME:", font=("Arial 15 bold"), compound="left", bg="black", fg="white", bd=5)
 username.grid(row=1, column=0, padx=10, pady=20)
 
@@ -42,7 +51,7 @@ def clear_placeholder_user():
         userEntry.delete(0, END)
 
 # Password label and entry
-passImg = PhotoImage(file="images\\password.png")
+passImg = PhotoImage(file=resource_path("images\\password.png"))
 password = Label(frm, image=passImg, text="ENTER PASSWORD:", font=("Arial 15 bold"), compound="left", bg="black", fg="white", bd=5)
 password.grid(row=2, column=0, padx=10, pady=20)
 
@@ -56,13 +65,13 @@ show_pass = Checkbutton(frm, text="Show Password", font=("Arial 10 bold"), bg="b
 show_pass.grid(row=2, column=2, sticky="w", padx=5)
 
 # Reset button
-resetImg = PhotoImage(file="images\\reset.png")
+resetImg = PhotoImage(file=resource_path("images\\reset.png"))
 reset = Button(frm, text="RESET", background="red", font=("Arial 15 bold"), bd=5, activebackground="red", activeforeground="black",
                cursor="hand2", command=lambda: clear(), image=resetImg, compound="left")
 reset.grid(row=3, column=0, padx=10, pady=10)
 
 # Login button
-loginImg = PhotoImage(file="images\\log.png")
+loginImg = PhotoImage(file=resource_path("images\\log.png"))
 login = Button(frm, text="LOGIN", background="green", font=("Arial 15 bold"), bd=5, activebackground="green", activeforeground="black",
                cursor="hand2", command=lambda: log(), image=loginImg, compound="left")
 login.grid(row=3, column=1,columnspan=2, padx=10, pady=10)
@@ -79,7 +88,7 @@ def hash_pass(password):
 def log():
     uid = userEntry.get()
     pid = passEntry.get()
-    dbadmin = sql.connect("admin.db")
+    dbadmin = sql.connect(resource_path("admin.db"))
     cur = dbadmin.cursor()
     try:
         cur.execute("CREATE TABLE IF NOT EXISTS UserLogin(User_id TEXT, Password TEXT)")
@@ -118,7 +127,7 @@ def register_new():
         messagebox.showwarning("Warning", "Please enter both username and password to register!")
         return
 
-    dbadmin = sql.connect("admin.db")
+    dbadmin = sql.connect(resource_path("admin.db"))
     cur = dbadmin.cursor()
     try:
         cur.execute("CREATE TABLE IF NOT EXISTS UserLogin(User_id TEXT, Password TEXT)")
