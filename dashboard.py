@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox, ttk
-import os,re,webbrowser,csv
+import os,re,webbrowser,csv,sys,subprocess
 from datetime import datetime,timedelta
 from tkinter.ttk import Combobox
 import numpy as np, matplotlib.pyplot as plt,pandas as pd, sqlite3 as sql
@@ -13,9 +13,17 @@ month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August
 y = list(range(2023, 2040))
 d = list(range(1, 32))
 
+#to convert relative into absolute path
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
 root = tk.Tk()
 root.title("BOOK BUFFET")
-root.iconbitmap('images\\library.ico')
+root.iconbitmap(resource_path('images\\library.ico'))
 
 # Get screen width and height
 screen_width = root.winfo_screenwidth()
@@ -62,7 +70,7 @@ def refresh():
     #clear the treeview
     book_tree.delete(*book_tree.get_children())
 
-    dbbook=sql.connect("BookDB.db")
+    dbbook=sql.connect(resource_path("BookDB.db"))
     cur = dbbook.cursor()
     cur.execute("SELECT * FROM Book")
     records=cur.fetchall()
@@ -113,7 +121,7 @@ def add_book():
         price=book_priceEntry.get()
         quantity=book_quantityEntry.get()
 
-        dbbook=sql.connect('BookDB.db')
+        dbbook=sql.connect(resource_path("BookDB.db"))
         cur=dbbook.cursor()
         cur.execute("""CREATE TABLE IF NOT EXISTS Book(
             Book_ID TEXT,Title TEXT,Author TEXT,
@@ -157,14 +165,14 @@ def add_book():
             addnewbook()
     
 #back button
-    backbtnImg=PhotoImage(file="images\\backbtn.png")
+    backbtnImg=PhotoImage(file=resource_path("images\\backbtn.png"))
     backbtn=Button(popup,text=" BACK",image=backbtnImg,font=("Arial 12 bold"),compound="left",bd=5,command=lambda:destry())
     backbtn.grid(row=0,column=0,sticky="w")
 #heading
     addbookLabel=Label(popup,text="ADD BOOK",anchor="center",bg="blue",width=60,fg="white",font=("Arial 14 bold"))
     addbookLabel.grid(row=0,column=1,sticky="nsew")
 #book_id label
-    book_idImg=PhotoImage(file="images\\book_id.png")
+    book_idImg=PhotoImage(file=resource_path("images\\book_id.png"))
     book_idLabel=Label(popup,text="    BOOK ID: ",font=("Arial 12 bold"),bg="#b9f8f8",image=book_idImg,compound="left",bd=4)
     book_idLabel.grid(row=1,column=1,rowspan=1,pady=10,sticky="w")
 #book_id entry box
@@ -173,7 +181,7 @@ def add_book():
     book_idEntry.grid(row=1,column=1,padx=10,pady=10,sticky="s")
 
 #book title label
-    book_titleImg=PhotoImage(file="images\\book_title.png")
+    book_titleImg=PhotoImage(file=resource_path("images\\book_title.png"))
     book_titleLabel=Label(popup,text="    TITLE: ",font=("Arial 12 bold"),bg="#b9f8f8",image=book_titleImg,compound="left",bd=4)
     book_titleLabel.grid(row=2,column=1,sticky="w")
 #book title entry box
@@ -182,7 +190,7 @@ def add_book():
     book_titleEntry.grid(row=2,column=1,padx=10,pady=10,sticky="s")
 
 #book Author label
-    book_authorImg=PhotoImage(file="images\\book_author.png")
+    book_authorImg=PhotoImage(file=resource_path("images\\book_author.png"))
     book_authorLabel=Label(popup,text="    AUTHOR: ",font=("Arial 12 bold"),bg="#b9f8f8",image=book_authorImg,compound="left",bd=4)
     book_authorLabel.grid(row=3,column=1,sticky="w")
 #book title entry box
@@ -191,7 +199,7 @@ def add_book():
     book_authorEntry.grid(row=3,column=1,padx=10,pady=10,sticky="s")
 
 #book Price label
-    book_priceImg=PhotoImage(file="images\\book_price.png")
+    book_priceImg=PhotoImage(file=resource_path("images\\book_price.png"))
     book_priceLabel=Label(popup,text="    PRICE: ",font=("Arial 12 bold"),bg="#b9f8f8",image=book_priceImg,compound="left",bd=4)
     book_priceLabel.grid(row=4,column=1,sticky="w")
 #book Price entry box
@@ -200,7 +208,7 @@ def add_book():
     book_priceEntry.grid(row=4,column=1,padx=10,pady=10,sticky="s")
 
 #book Quantity label
-    book_quantityImg=PhotoImage(file="images\\book_quantity.png")
+    book_quantityImg=PhotoImage(file=resource_path("images\\book_quantity.png"))
     book_quantityLabel=Label(popup,text="    QUANTITY: ",font=("Arial 12 bold"),bg="#b9f8f8",image=book_quantityImg,compound="left",bd=4)
     book_quantityLabel.grid(row=5,column=1,sticky="w")
 #book Quantity entry box
@@ -316,7 +324,7 @@ def update_book():
         save.grid(row=6,column=0,pady=10,padx=30,sticky="w")
 
         try:
-            dbbook=sql.connect('BookDB.db')
+            dbbook=sql.connect(resource_path("BookDB.db"))
             cur=dbbook.cursor()
             cur.execute("SELECT * FROM Book WHERE Book_ID=?",(book_id,))
             value = cur.fetchone()
@@ -333,7 +341,7 @@ def update_book():
     def check():
             global existing_book,book_id
             book_id=book_idEntry.get()
-            dbbook=sql.connect('BookDB.db')
+            dbbook=sql.connect(resource_path("BookDB.db"))
             cur=dbbook.cursor()
             #check if book already exist
             cur.execute("SELECT * FROM Book WHERE Book_ID=?",(book_id,))
@@ -347,14 +355,14 @@ def update_book():
                 messagebox.showwarning("Warning","Book does not exists in database!!!")
 
 #back button
-    backbtnImg=PhotoImage(file="images\\backbtn.png")
+    backbtnImg=PhotoImage(file=resource_path("images\\backbtn.png"))
     backbtn=Button(popup,text=" BACK",image=backbtnImg,font=("Arial 12 bold"),compound="left",bd=5,command=lambda:destry())
     backbtn.grid(row=0,column=0,sticky="w")
 #heading
     updatebookLabel=Label(popup,text="UPDATE BOOK",anchor="center",bg="blue",width=60,fg="white",font=("Arial 14 bold"))
     updatebookLabel.grid(row=0,column=1,sticky="nsew")
     #book_id label
-    book_idImg=PhotoImage(file="images\\book_id.png")
+    book_idImg=PhotoImage(file=resource_path("images\\book_id.png"))
     book_idLabel=Label(popup,text="  BOOK ID:",font=("Arial 12 bold"),bg="#b9f8f8",image=book_idImg,compound="left",bd=4)
     book_idLabel.grid(row=1,column=1,rowspan=2,padx=20,pady=10,sticky="w")
 #book_id entry box
@@ -389,11 +397,11 @@ def add_new_member():
     lb1=Label(popup,text="Add New Member",font=("Arial 14 bold"),bd=5,bg="blue",fg="white",width=60,anchor="center")
     lb1.grid(row=0,column=0,sticky="nsew")
 #back button
-    backbtnImg=PhotoImage(file="images\\backbtn.png")
+    backbtnImg=PhotoImage(file=resource_path("images\\backbtn.png"))
     backbtn=Button(popup,text=" BACK",image=backbtnImg,font=("Arial 12 bold"),compound="left",bd=5,command=lambda:destry())
     backbtn.grid(row=0,column=0,sticky="w")
 #member_id label
-    member_idImg=PhotoImage(file="images\\mem_id.png")
+    member_idImg=PhotoImage(file=resource_path("images\\mem_id.png"))
     member_idLabel=Label(popup,text=" Enter Member ID:",font=("Arial 12 bold"),bg="#b9f8f8",bd=4,image=member_idImg,compound="left")
     member_idLabel.grid(row=1,column=0,padx=20,pady=5,sticky="w")
 #member_id entry box
@@ -402,7 +410,7 @@ def add_new_member():
     member_idEntry.grid(row=1,column=0,padx=10,pady=5,sticky="s")
 
 #member_name label
-    member_nameImg=PhotoImage(file="images\\mem_name.png")
+    member_nameImg=PhotoImage(file=resource_path("images\\mem_name.png"))
     member_nameLabel=Label(popup,text=" Enter Member Name:",font=("Arial 12 bold"),bg="#b9f8f8",bd=4,image=member_nameImg,compound="left")
     member_nameLabel.grid(row=2,column=0,padx=10,pady=5,sticky="w")
 #member_name entry box
@@ -411,7 +419,7 @@ def add_new_member():
     member_nameEntry.grid(row=2,column=0,padx=10,pady=5,sticky="s")
 
 #member email label
-    member_emailImg=PhotoImage(file="images\\mem_email.png")
+    member_emailImg=PhotoImage(file=resource_path("images\\mem_email.png"))
     member_emailLabel=Label(popup,text="  Enter Email ID: ",font=("Arial 12 bold"),bg="#b9f8f8",bd=4,image=member_emailImg,compound="left")
     member_emailLabel.grid(row=3,column=0,padx=20,pady=5,sticky="w")
 #member_email entry box
@@ -420,7 +428,7 @@ def add_new_member():
     member_emailEntry.grid(row=3,column=0,padx=10,pady=5,sticky="s")
 
 #member year of studying label
-    member_yearImg=PhotoImage(file="images\\mem_year.png")
+    member_yearImg=PhotoImage(file=resource_path("images\\mem_year.png"))
     member_yearLabel=Label(popup,text="Enter year of studying: ",font=("Arial 12 bold"),bg="#b9f8f8",bd=4,image=member_yearImg,compound="left")
     member_yearLabel.grid(row=4,column=0,padx=20,pady=5,sticky="w")
 #member year of studying entry box
@@ -429,7 +437,7 @@ def add_new_member():
     member_yearEntry.grid(row=4,column=0,padx=10,pady=5,sticky="s")
 
 #member select course label
-    member_courseImg=PhotoImage(file="images\\mem_course.png")
+    member_courseImg=PhotoImage(file=resource_path("images\\mem_course.png"))
     member_courseLabel=Label(popup,text="  Enter Course Name: ",font=("Arial 12 bold"),bg="#b9f8f8",bd=4,image=member_courseImg,compound="left")
     member_courseLabel.grid(row=5,column=0,padx=20,pady=5,sticky="w")
 #member select course entry box
@@ -468,7 +476,7 @@ def addnewmember():
         messagebox.showwarning("Warning","Please fill out require details!!")
         return
 
-    dbmemb=sql.connect('MemDB.db')
+    dbmemb=sql.connect(resource_path("MemDB.db"))
     cur=dbmemb.cursor()
     cur.execute("""CREATE TABLE IF NOT EXISTS member(Member_ID INT,Member_Name TEXT,Email TEXT,Year INT,Course TEXT)
              """)
@@ -517,7 +525,7 @@ def delete_book():
     def delfunc():
         global book_id
         book_id=book_idEntry.get()
-        dbbook=sql.connect('BookDB.db')
+        dbbook=sql.connect(resource_path("BookDB.db"))
         cur=dbbook.cursor()
         # Check if book_id is not empty
         if book_id=="":
@@ -549,11 +557,11 @@ def delete_book():
     lb1=Label(popup,text="Delete Book",font=("Arial 14 bold"),bd=5,bg="blue",fg="white",width=60,anchor="center")
     lb1.grid(row=0,column=0,sticky="nsew")
 #back button
-    backbtnImg=PhotoImage(file="images\\backbtn.png")
+    backbtnImg=PhotoImage(file=resource_path("images\\backbtn.png"))
     backbtn=Button(popup,text=" BACK",image=backbtnImg,font=("Arial 12 bold"),compound="left",bd=5,command=destry)
     backbtn.grid(row=0,column=0,sticky="w")
 #book_id label
-    book_idImg=PhotoImage(file="images\\book_id.png")
+    book_idImg=PhotoImage(file=resource_path("images\\book_id.png"))
     book_idLabel=Label(popup,text="   Enter BOOK ID: ",font=("Arial 12 bold"),bg="#b9f8f8",bd=4,image=book_idImg,compound="left")
     book_idLabel.grid(row=1,column=0,padx=20,pady=10,sticky="w")
 #book_id entry box
@@ -582,7 +590,7 @@ def search_book():
             messagebox.showwarning("Warning", "Please enter Book ID!!")
             return
 
-        dbbook = sql.connect('BookDB.db')
+        dbbook = sql.connect(resource_path("BookDB.db"))
         cur = dbbook.cursor()
         try:
             cur.execute("SELECT * FROM Book WHERE Book_ID=?", (book_id,))
@@ -622,10 +630,10 @@ def search_book():
     # === UI Elements ===
     Label(popup, text="Search Book", font=("Arial 14 bold"), bd=5, bg="blue", fg="white", width=60).grid(row=0, column=0, sticky="nsew")
 
-    backbtnImg = PhotoImage(file="images\\backbtn.png")
+    backbtnImg = PhotoImage(file=resource_path("images\\backbtn.png"))
     Button(popup, text=" BACK", image=backbtnImg, font=("Arial 12 bold"), compound="left", bd=5, command=destry).grid(row=0, column=0, sticky="w")
 
-    book_idImg = PhotoImage(file="images\\book_id.png")
+    book_idImg = PhotoImage(file=resource_path("images\\book_id.png"))
     Label(popup, text=" Enter BOOK ID: ", font=("Arial 12 bold"), bg="#b9f8f8", bd=4, image=book_idImg, compound="left").grid(row=1, column=0, padx=20, pady=10, sticky="w")
 
     book_idEntry = Entry(popup, bd=5, font=("Arial 12 bold"), fg="blue", width=30)
@@ -650,11 +658,11 @@ def return_book():
     lb1=Label(popup,text="Return Book",font=("Arial 14 bold"),bd=5,bg="blue",fg="white",width=60,anchor="center")
     lb1.grid(row=0,column=0,sticky="nsew")
 #back button
-    backbtnImg=PhotoImage(file="images\\backbtn.png")
+    backbtnImg=PhotoImage(file=resource_path("images\\backbtn.png"))
     backbtn=Button(popup,text=" BACK",image=backbtnImg,font=("Arial 12 bold"),compound="left",bd=5,command=lambda:destry())
     backbtn.grid(row=0,column=0,sticky="w")
 #book_id label
-    book_idImg=PhotoImage(file="images\\book_id.png")
+    book_idImg=PhotoImage(file=resource_path("images\\book_id.png"))
     book_idLabel=Label(popup,text="Enter BOOK ID: ",font=("Arial 12 bold"),bg="#b9f8f8",bd=4,compound="left",image=book_idImg)
     book_idLabel.grid(row=1,column=0,padx=20,pady=10,sticky="w")
 #book_id entry box
@@ -662,7 +670,7 @@ def return_book():
     book_idEntry.insert(0,"Enter Book ID")
     book_idEntry.grid(row=1,column=0,padx=10,pady=10,sticky="s")
 #member_id label
-    member_idImg=PhotoImage(file="images\\mem_id.png")
+    member_idImg=PhotoImage(file=resource_path("images\\mem_id.png"))
     member_idLabel=Label(popup,text="Enter Member ID: ",font=("Arial 12 bold"),bg="#b9f8f8",bd=4,compound="left",image=member_idImg)
     member_idLabel.grid(row=2,column=0,padx=20,pady=10,sticky="w")
 #member_id entry box
@@ -670,7 +678,7 @@ def return_book():
     member_idEntry.insert(0,"Enter Member ID")
     member_idEntry.grid(row=2,column=0,padx=10,pady=10,sticky="s")
 #return date label
-    return_dateImg=PhotoImage(file="images\\return_date.png")
+    return_dateImg=PhotoImage(file=resource_path("images\\return_date.png"))
     return_dateLabel=Label(popup,text="Return Date: ",font=("Arial 12 bold"),bg="#b9f8f8",bd=4,compound="left",image=return_dateImg)
     return_dateLabel.grid(row=3,column=0,padx=20,pady=10,sticky="w")
 #return date combobox
@@ -725,7 +733,7 @@ def return_book():
 
 #to calculate fine on late return
     def fine(book_id, member_id, expected_return_date_str):
-        dbmemb=sql.connect("MemDB.db")
+        dbmemb=sql.connect(resource_path("MemDB.db"))
         cursor=dbmemb.cursor()
         try:
             # Convert string dates to datetime objects
@@ -765,7 +773,7 @@ def return_book():
             messagebox.showwarning("Warning", "Please enter a value!!")
             return
         
-        dbmemb=sql.connect('MemDB.db')
+        dbmemb=sql.connect(resource_path("MemDB.db"))
         cursor=dbmemb.cursor()
         cursor.execute("SELECT * FROM member WHERE Member_ID=?",(member_id,))
         memb=cursor.fetchone()
@@ -773,7 +781,7 @@ def return_book():
             messagebox.showwarning("Error","Member does not exist!!!")   
             return   
           
-        dbbook=sql.connect('BookDB.db')
+        dbbook=sql.connect(resource_path("BookDB.db"))
         cur=dbbook.cursor()
         cur.execute("SELECT * FROM Book WHERE Book_ID=?",(book_id,))
         book_data=cur.fetchone()
@@ -836,7 +844,7 @@ def issue_book():
         popup.destroy()
     
     def is_already_issued(member_id, book_id):
-        dbbook = sql.connect('BookDB.db')
+        dbbook = sql.connect(resource_path("BookDB.db"))
         cur = dbbook.cursor()
         cur.execute("CREATE TABLE IF NOT EXISTS issue (Member_ID TEXT, Member_Name TEXT, Book_ID TEXT, Issue_Date TEXT)")
         cur.execute("SELECT * FROM issue WHERE Member_ID=? AND Book_ID=?", (member_id, book_id))
@@ -875,7 +883,7 @@ def issue_book():
                 messagebox.showinfo("SUCCESS", "Book issued successfully!")
 
                 # update treeview
-                dbbook = sql.connect('BookDB.db')
+                dbbook = sql.connect(resource_path("BookDB.db"))
                 cur = dbbook.cursor()
                 cur.execute("SELECT Title, Author, Price FROM Book WHERE Book_ID=?", (book_id,))
                 book_details = cur.fetchone()
@@ -892,7 +900,7 @@ def issue_book():
 
 
     def check_member_exists(member_id):
-        dbmemb = sql.connect('MemDB.db')
+        dbmemb = sql.connect(resource_path("MemDB.db"))
         cur = dbmemb.cursor()
         cur.execute("SELECT * FROM member WHERE Member_ID=?", (member_id,))
         member_exists = cur.fetchone() is not None
@@ -901,7 +909,7 @@ def issue_book():
         return member_exists
 
     def check_book_exists(book_id):
-        dbbook = sql.connect('BookDB.db')
+        dbbook = sql.connect(resource_path("BookDB.db"))
         cur = dbbook.cursor()
         cur.execute("SELECT * FROM Book WHERE Book_ID=?", (book_id,))
         book_info = cur.fetchone()
@@ -911,7 +919,7 @@ def issue_book():
         return book_exists, {"Quantity": int(book_info[4])} if book_exists else {}
 
     def update_book_quantity(book_id, new_quantity):
-        dbbook = sql.connect('BookDB.db')
+        dbbook = sql.connect(resource_path("BookDB.db"))
         cur = dbbook.cursor()
         cur.execute("UPDATE Book SET Quantity=? WHERE Book_ID=?", (new_quantity, book_id))
         dbbook.commit()
@@ -922,7 +930,7 @@ def issue_book():
         dbmemb = dbbook = None
         cursor = cur = None
         try:
-            dbmemb = sql.connect('MemDB.db')
+            dbmemb = sql.connect(resource_path("MemDB.db"))
             cursor = dbmemb.cursor()
             cursor.execute("SELECT Member_Name FROM member WHERE Member_ID=?", (member_id,))
             member = cursor.fetchone()
@@ -931,7 +939,7 @@ def issue_book():
                 messagebox.showwarning("Warning", "Member not found.")
                 return
 
-            dbbook = sql.connect('BookDB.db')
+            dbbook = sql.connect(resource_path("BookDB.db"))
             cur = dbbook.cursor()
 
             # Ensure tables exist
@@ -975,11 +983,11 @@ def issue_book():
     lb1=Label(popup,text="Issue Book",font=("Arial 14 bold"),bd=5,bg="blue",fg="white",width=60,anchor="center")
     lb1.grid(row=0,column=0,sticky="nsew")
 #back button
-    backbtnImg=PhotoImage(file="images\\backbtn.png")
+    backbtnImg=PhotoImage(file=resource_path("images\\backbtn.png"))
     backbtn=Button(popup,text=" BACK",image=backbtnImg,font=("Arial 12 bold"),compound="left",bd=5,command=lambda:destry())
     backbtn.grid(row=0,column=0,sticky="w")
 #book_id label
-    book_idImg=PhotoImage(file="images\\book_id.png")
+    book_idImg=PhotoImage(file=resource_path("images\\book_id.png"))
     book_idLabel=Label(popup,text="Enter BOOK ID: ",font=("Arial 12 bold"),bg="#b9f8f8",bd=4,compound="left",image=book_idImg)
     book_idLabel.grid(row=1,column=0,padx=20,pady=10,sticky="w")
 #book_id entry box
@@ -987,7 +995,7 @@ def issue_book():
     book_idEntry.insert(0,"Enter Book ID")
     book_idEntry.grid(row=1,column=0,padx=10,pady=10,sticky="s")
 #member_id label
-    member_idImg=PhotoImage(file="images\\mem_id.png")
+    member_idImg=PhotoImage(file=resource_path("images\\mem_id.png"))
     mem_idLabel=Label(popup,text="Enter Member ID: ",font=("Arial 12 bold"),bg="#b9f8f8",bd=4,compound="left",image=member_idImg)
     mem_idLabel.grid(row=2,column=0,padx=20,pady=10,sticky="w")
 #member_id entry box
@@ -995,7 +1003,7 @@ def issue_book():
     member_idEntry.insert(0,"Enter Member ID")
     member_idEntry.grid(row=2,column=0,padx=10,pady=10,sticky="s")
 #issue date label
-    issue_dateImg=PhotoImage(file="images\\issue_date.png")
+    issue_dateImg=PhotoImage(file=resource_path("images\\issue_date.png"))
     issue_dateLabel=Label(popup,text="Issue Date:",font=("Arial 12 bold"),bg="#b9f8f8",bd=4,compound="left",image=issue_dateImg)
     issue_dateLabel.grid(row=3,column=0,padx=20,pady=10,sticky="w")
 #issue button
@@ -1037,11 +1045,11 @@ def update_member_info():
     lb1=Label(popup,text="Update Member Information",font=("Arial 14 bold"),bd=5,bg="blue",fg="white",width=60,anchor="center")
     lb1.grid(row=0,column=0,sticky="nsew")
 #back button
-    backbtnImg=PhotoImage(file="images\\backbtn.png")
+    backbtnImg=PhotoImage(file=resource_path("images\\backbtn.png"))
     backbtn=Button(popup,text=" BACK",image=backbtnImg,font=("Arial 12 bold"),compound="left",bd=5,command=lambda:destry())
     backbtn.grid(row=0,column=0,sticky="w")
 #Member_id Label
-    member_idImg=PhotoImage(file="images\\mem_id.png")
+    member_idImg=PhotoImage(file=resource_path("images\\mem_id.png"))
     member_idLabel=Label(popup,text="  Member ID: ",font=("Arial 12 bold"),bg="#b9f8f8",bd=4,compound="left",image=member_idImg)
     member_idLabel.grid(row=1,column=0,padx=20,pady=10,sticky="w")
 #Member ID entry box
@@ -1061,14 +1069,14 @@ def update_member_info():
         result_window.configure(bg="yellow")
 
     #Update email label
-        member_emailImg=PhotoImage(file="images\\mem_email.png")
+        member_emailImg=PhotoImage(file=resource_path("images\\mem_email.png"))
         email_Label=Label(result_window,text="   Email: ",font=("Arial 12 bold"),bd=4,bg="yellow",compound="left",image=member_emailImg)
         email_Label.grid(row=1,column=0,padx=20,pady=10,sticky="w")
     #Update email entry box
         email_Entry=Entry(result_window,bd=5,font=("Arial 12 bold"),fg="blue",width=30)
         email_Entry.grid(row=1,column=1,pady=10,sticky="n")
      #Update year label
-        member_yearImg=PhotoImage(file="images\\mem_year.png")
+        member_yearImg=PhotoImage(file=resource_path("images\\mem_year.png"))
         year_Label=Label(result_window,text="  Year: ",font=("Arial 12 bold"),bd=4,bg="yellow",compound="left",image=member_yearImg)
         year_Label.grid(row=2,column=0,padx=20,pady=10,sticky="w")
     #Update email entry box
@@ -1097,7 +1105,7 @@ def update_member_info():
                     return
                 
                 try:
-                    dbmemb=sql.connect('MemDB.db')
+                    dbmemb=sql.connect(resource_path("MemDB.db"))
                     cur=dbmemb.cursor()
                     cur.execute("UPDATE member SET Email=?,Year=? WHERE Member_ID=?",(email,year,memb_id))
                     dbmemb.commit()
@@ -1110,7 +1118,7 @@ def update_member_info():
 
     def search_member():
         nonlocal result_window
-        dbmemb=sql.connect('MemDB.db')
+        dbmemb=sql.connect(resource_path("MemDB.db"))
         cur=dbmemb.cursor()
         try:
             memb_id=member_idEntry.get()
@@ -1186,9 +1194,9 @@ def display_existing_members():
         confirm = messagebox.askyesno("Confirm Delete", f"Are you sure you want to delete Member ID '{member_id}'?")
         if confirm:
             try:
-                db = sql.connect("MemDB.db")
+                db = sql.connect(resource_path("MemDB.db"))
                 cur = db.cursor()
-                bookdb = sql.connect("BookDB.db")
+                bookdb = sql.connect(resource_path("BookDB.db"))
                 cursor = bookdb.cursor()
                 cur.execute("DELETE FROM member WHERE Member_ID=?", (member_id,))
                 #delete related records from issue table and expected return date table
@@ -1206,7 +1214,7 @@ def display_existing_members():
 
 
     # === Fetch Data and Insert into TreeView ===
-    dbmemb = sql.connect("MemDB.db")
+    dbmemb = sql.connect(resource_path("MemDB.db"))
     cur = dbmemb.cursor()
 
     try:
@@ -1266,7 +1274,7 @@ def display_issued_book():
     issued_book.tag_configure('evenrow', background="lightblue")
 
     #Fetch Data and Insert into TreeView
-    dbbook = sql.connect("BookDB.db")
+    dbbook = sql.connect(resource_path("BookDB.db"))
     cur = dbbook.cursor()
 
     try:
@@ -1302,7 +1310,7 @@ def generate_report():
     lb1=Label(popup,text="Book Issuance Report",font=("Arial 14 bold"),bd=5,bg="blue",fg="white",width=60,anchor="center")
     lb1.grid(row=0,column=0,sticky="nsew")
 #back button
-    backbtnImg=PhotoImage(file="images\\backbtn.png")
+    backbtnImg=PhotoImage(file=resource_path("images\\backbtn.png"))
     backbtn=Button(popup,text=" BACK",image=backbtnImg,font=("Arial 12 bold"),compound="left",bd=5,command=lambda:destry())
     backbtn.grid(row=0,column=0,sticky="w")
 #Date Label
@@ -1319,7 +1327,7 @@ def generate_report():
     def generate():
         target_date = Reportdate_Entry.get().strip()
         try:
-            dbbook = sql.connect('BookDB.db')
+            dbbook = sql.connect(resource_path("BookDB.db"))
 
             # First check if there are issued books on selected date
             if target_date:
@@ -1373,15 +1381,21 @@ def generate_report():
 
 # create backup of book and member database in excel and pdf format
 def create_backup():
-    backup_folder = 'backup_folder'
-    # Create the backup folder if it doesn't exist
+    if getattr(sys, 'frozen', False):
+        # Running as EXE
+        app_path = os.path.dirname(sys.executable)
+    else:
+        # Running as script (in VS Code)
+        app_path = os.path.dirname(os.path.abspath(__file__))
+
+    backup_folder = os.path.join(app_path, 'backup_folder')
+
     if not os.path.exists(backup_folder):
         os.makedirs(backup_folder)
 
     def export_to_csv(database, table_name, csv_file):
         connection = sql.connect(database)
-        query = f'SELECT * FROM {table_name}'
-        df = pd.read_sql_query(query, connection)
+        df = pd.read_sql_query(f'SELECT * FROM {table_name}', connection)
         df.to_csv(csv_file, index=False)
         connection.close()
 
@@ -1391,32 +1405,36 @@ def create_backup():
         pdf.set_font("Arial", size=12)
         with open(csv_file, 'r') as file:
             for row in csv.reader(file):
-                pdf.cell(200, 10, txt=" ".join(row), ln=True)
+                pdf.cell(200, 10, txt=" | ".join(row), ln=True)
         pdf.output(pdf_file)
 
     try:
-        # Backup for Database 1 BookDB
-        database1 = 'BookDB.db'
-        tables_database1 = ['Book', 'issue']
-        for table in tables_database1:
-            csv_file = os.path.join(backup_folder, f'backup_{database1}_{table}.csv')
-            pdf_file = os.path.join(backup_folder, f'backup_{database1}_{table}.pdf')
-            export_to_csv(database1, table, csv_file)
-            convert_csv_to_pdf(csv_file, pdf_file)
+        # Resource paths
+        def resource_path(relative):
+            try:
+                base = sys._MEIPASS
+            except AttributeError:
+                base = os.path.abspath(".")
+            return os.path.join(base, relative)
 
-        # Backup for Database 2 MemDB
-        database2 = 'MemDB.db'
-        tables_database2 = ['member', 'Expected_Return_Dates']
-        for table in tables_database2:
-            csv_file = os.path.join(backup_folder, f'backup_{database2}_{table}.csv')
-            pdf_file = os.path.join(backup_folder, f'backup_{database2}_{table}.pdf')
-            export_to_csv(database2, table, csv_file)
-            convert_csv_to_pdf(csv_file, pdf_file)
+        db1 = resource_path("BookDB.db")
+        db2 = resource_path("MemDB.db")
 
-            #display success message afer successful backup
-        messagebox.showinfo("Success","Backup files created successfully !!!!")
+        for table in ['Book', 'issue']:
+            csv_path = os.path.join(backup_folder, f'backup_BookDB_{table}.csv')
+            pdf_path = os.path.join(backup_folder, f'backup_BookDB_{table}.pdf')
+            export_to_csv(db1, table, csv_path)
+            convert_csv_to_pdf(csv_path, pdf_path)
+
+        for table in ['member', 'Expected_Return_Dates']:
+            csv_path = os.path.join(backup_folder, f'backup_MemDB_{table}.csv')
+            pdf_path = os.path.join(backup_folder, f'backup_MemDB_{table}.pdf')
+            export_to_csv(db2, table, csv_path)
+            convert_csv_to_pdf(csv_path, pdf_path)
+
+        messagebox.showinfo("Success", "Backup files created successfully!")
     except Exception as e:
-        messagebox.showerror("Error",f'Sqlite error {e}')
+        messagebox.showerror("Error", f"SQLite error: {e}")
 
 #open amazon website to order book
 def open_browser():
@@ -1458,8 +1476,7 @@ canvas.pack(side="left", fill="both", expand=True)
 scrollbar.pack(side="right", fill="y")
 
 # === Logout Button pinned at the bottom ===
-def logout_action():
-    global project_login  
+def logout_action(): 
     try:
         ask=messagebox.askyesno("Confirmation","Do you really want to logout?")
         if ask:
@@ -1467,7 +1484,8 @@ def logout_action():
                 if isinstance(window, Toplevel):
                     window.destroy()
             root.destroy()
-            import project_login
+            # to reopen login page again
+            subprocess.Popen([sys.executable, "project_login.py"])
         else:
             messagebox.showinfo("Info","Logout cancelled")
     except:
@@ -1592,7 +1610,7 @@ def viewbook():
         for row in book_tree.get_children():
             book_tree.delete(row)
 
-        dbbook = sql.connect("BookDB.db")
+        dbbook = sql.connect(resource_path("BookDB.db"))
         cur = dbbook.cursor()
         cur.execute("SELECT * FROM Book")
         records = cur.fetchall()
