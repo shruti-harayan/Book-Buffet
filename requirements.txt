@@ -1,0 +1,16 @@
+sqlite3
+tkinter
+webbrowser
+fpdf
+hashlib
+PIL
+numpy
+pandas
+matplotlib
+datetime
+os
+re
+csv
+sys
+subprocess
+shutil
