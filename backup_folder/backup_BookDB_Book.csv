@@ -1,0 +1,23 @@
+Book_ID,Title,Author,Price,Quantity
+alchemy,The Alchemist,Paulo Coelho,299,12
+hp,Harry Potter,J. K. Rowling,799,18
+rdpd,Rich Dad Poor Dad,Robert Kiyosaki,400,12
+tmwshf,The Monk Who Sold His Ferrari,Robin Sharma,1055,5
+wmmc,Who Moved My Cheese?,Spencer Johnson,399,10
+c,Let Us C,Yashavant Kanetkar,300,30
+iot,Internet of Things,Raj Kamal,999,6
+c#,Programming ASP.NET,D.Esposito,499,10
+linux,Linux Administration,Wale Soyinka,349,14
+java,Java:The Complete Reference,Herbert Schildt,849,18
+ma,Microprocessor Architecture,Ramesh S. Gaonkar,1199,18
+python,The Python Language Reference Manual,Guido van Rossum,1499,13
+tpoysm,The Power of your subconscious mind,Joseph Murphy,241,14
+las,Life's Amazing Secrets,Gaur Gopal Das,140,21
+tlam,Think Like a Monk,Jay Shetty,180,10
+android,Android Programming for Beginners,John Horton,3099,4
+im,Ignited Minds,A P J Abdul Kalam,190,13
+wof,Wings of Fire,A P J Abdul Kalam,222,17
+ikigai,Ikigai,Garcia Hector,158,8
+c++,The C++ Programming Language,Bjarne Stroustrup,999,15
+ah,Atomic Habits,James Clear,499,13
+a,Enter Book Name,Enter Author Name,12,6
