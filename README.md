@@ -30,6 +30,9 @@ matplotlib (Charts)
 FPDF (PDF backup)
 Pillow (PIL for image handling)
 
+🔗 Dependencies
+Install them via: pip install -r requirements.txt
+
 🛠️ Developer Setup
 📁 Project Structure
 Book-Buffet/
@@ -43,9 +46,6 @@ Book-Buffet/
 ├── project_login.py         # Entry point to the app
 ├── dashboard.py             # Main dashboard UI
 ├── README.md
-
-🔗 Dependencies
-Install them via: pip install -r requirements.txt
 
 📝 Additional Notes
 The application uses ensure_writable_db() internally to make databases writable when compiled as .exe
