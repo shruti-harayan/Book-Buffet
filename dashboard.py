@@ -1381,17 +1381,9 @@ def generate_report():
 
 # create backup of book and member database in excel and pdf format
 def create_backup():
-    if getattr(sys, 'frozen', False):
-        # Running as EXE
-        app_path = os.path.dirname(sys.executable)
-    else:
-        # Running as script (in VS Code)
-        app_path = os.path.dirname(os.path.abspath(__file__))
-
-    backup_folder = os.path.join(app_path, 'backup_folder')
-
-    if not os.path.exists(backup_folder):
-        os.makedirs(backup_folder)
+    # Create a writable backup folder inside AppData
+    backup_folder = os.path.join(os.getenv('APPDATA'), 'BookBuffet', 'backup_folder')
+    os.makedirs(backup_folder, exist_ok=True)
 
     def export_to_csv(database, table_name, csv_file):
         connection = sql.connect(database)
