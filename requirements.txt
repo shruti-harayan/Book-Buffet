@@ -1,16 +1,5 @@
-sqlite3
-tkinter
-webbrowser
 fpdf
-hashlib
-PIL
+pillow
 numpy
 pandas
 matplotlib
-datetime
-os
-re
-csv
-sys
-subprocess
-shutil
