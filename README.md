@@ -60,3 +60,10 @@ Installer can be created using Inno Setup or you can use the provided .exe direc
 🔐 Default Admin Login
 Username: admin	   
 Password: shruti
+you cal also register a new user
+
+Running from source:
+git clone https://github.com/your-username/BookBuffet.git
+cd BookBuffet
+pip install -r requirements.txt
+python project_login.py
