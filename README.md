@@ -1,4 +1,9 @@
 📖 Book Buffet – Library Management System
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Desktop-green)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
+![Status](https://img.shields.io/badge/Status-Stable-brightgreen)
+
 A full-featured, standalone desktop application built using Tkinter, SQLite, and Python, designed for managing library operations like book issuance, returns, member registration, backups, and reporting.
 
 ✅ This project is compiled into a .exe file and is available as a downloadable release for easy access.
@@ -53,5 +58,5 @@ All local file paths are managed via sys._MEIPASS to ensure compatibility in PyI
 Installer can be created using Inno Setup or you can use the provided .exe directly
 
 🔐 Default Admin Login
-Username	Password
-admin	    shruti
+Username: admin	   
+Password: shruti
