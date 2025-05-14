@@ -38,6 +38,8 @@ Pillow (PIL for image handling)
 🔗 Dependencies
 Install them via: pip install -r requirements.txt
 
+flaticon.com for free images: .png or .ico file
+
 🛠️ Developer Setup
 📁 Project Structure
 Book-Buffet/
