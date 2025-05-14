@@ -1,7 +1,6 @@
 # Optimized spec file for Book Buffet App
 # -- project_login.spec --
 
-
 import os
 import glob
 from PyInstaller.utils.hooks import collect_submodules
@@ -63,19 +62,3 @@ coll = COLLECT(
     upx_exclude=[],
     name='BookBuffet'
 )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
