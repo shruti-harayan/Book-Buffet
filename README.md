@@ -66,21 +66,20 @@ pip install -r requirements.txt
 python project_login.py
 ```
 
-##🔐 Default Login
+🔐 Default Login
 ---
 Username:  admin	
 Password:  shruti
 
 Or click the Register button to create your own account.
----
 
-##🔏 License
+🔏 License
 ---
 This project is licensed under the MIT License. Feel free to use, modify, and share!
----
 
-##🙋‍♀️ Author
+
+🙋‍♀️ Author
 ---
 Developed by Shruti Harayan
----
+
 Made with ❤️ using Python + Tkinter
