@@ -26,56 +26,56 @@ A standalone, full-featured **desktop app** built with Python (Tkinter) for mana
 ![Login Page](images/screenshots/login.png)
 ![Dashboard](images/screenshots/dashboard.png)
 
+---
 
-🧑‍💻 Technologies Used
-Python 3.11	Core language
-Tkinter	GUI Toolkit
-SQLite3	Database for books & members
-pandas, numpy	Data manipulation
-matplotlib	Chart generation
-FPDF	PDF export
-PIL (Pillow)	Image support
+## 🧑‍💻 Technologies Used
 
-🚀 How to Run
-Download BookBuffet_v1.0.zip from Releases
+| Technology   | Purpose                      |
+|--------------|-------------------------------|
+| **Python 3.11** | Core programming language  |
+| **Tkinter**     | GUI Toolkit                 |
+| **SQLite3**     | Local DB for books & members |
+| **pandas, numpy** | Data manipulation        |
+| **matplotlib**  | Charts (bar, line)          |
+| **FPDF**        | Export to PDF               |
+| **Pillow (PIL)**| Image/icon handling         |
 
-Extract the ZIP
+---
 
-Run project_login.exe
+## 🚀 How to Run
 
-You're in! 🎉
+### 🟢 Option 1: From Executable (Recommended for Users)
 
-💻 From Source
+1. Go to [Releases](https://github.com/yourusername/BookBuffet/releases)
+2. Download `BookBuffet_v1.0.zip`
+3. Extract the ZIP
+4. Double-click `project_login.exe`
 
+✅ You're in!
+
+> 📁 Databases and required Excel files are bundled inside the ZIP
+
+---
+
+### 🧑‍💻 Option 2: From Source (For Developers)
+
+```bash
 git clone https://github.com/yourusername/BookBuffet.git
 cd BookBuffet
 pip install -r requirements.txt
 python project_login.py
+```
 
-🔑 Default Login
-Username	Password
-admin	shruti
+🔐 Default Login
+Username:  admin	
+Password:  shruti
 
-Or use the Register button to create a new user.
+Or click the Register button to create your own account.
 
-🗂️ Project Structure
-BookBuffet/
-├── images/                  # All icons & images
-├── backup_folder/           # Created during backup
-├── BookDB.db                # Books database
-├── MemDB.db                 # Members database
-├── admin.db                 # Admin login credentials
-├── Existing Book.xlsx       # Used in report generation
-├── dashboard.py             # Main GUI
-├── project_login.py         # Entry point
-├── requirements.txt         # Python dependencies
-└── README.md                # Project documentation
+🔏 License
+This project is licensed under the MIT License. Feel free to use, modify, and share!
 
-📄 License
-This project is licensed under the MIT License.
-Feel free to use, adapt, and improve it.
-
-👤 Author
-Shruti H.
+🙋‍♀️ Author
+Developed by Shruti Harayan
 
 Made with ❤️ using Python + Tkinter
