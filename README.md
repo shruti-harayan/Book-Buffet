@@ -25,9 +25,25 @@ A standalone, full-featured **desktop app** built with Python (Tkinter) for mana
 
 ![Dashboard](https://github.com/user-attachments/assets/89988977-6578-4a5c-8dfb-6f07c323a498)
 
+![add book](https://github.com/user-attachments/assets/8b7147d7-766f-43de-8fc4-9d7df789413d)
+
+![search book](https://github.com/user-attachments/assets/ba19b084-29cb-4262-8416-fd6ee3334d53)
+
+![update member info](https://github.com/user-attachments/assets/733507ff-dadb-47d9-86d3-ef5683a06034)
+
+![display existing member](https://github.com/user-attachments/assets/56d17e89-a14d-4e12-a051-e2c1d83aedfb)
+
+![display issued book](https://github.com/user-attachments/assets/25a8b2f2-c532-4466-a9c9-8a682f5ebb24)
+
+![visual graph](https://github.com/user-attachments/assets/2d4c26c1-2593-471b-b99c-dc11697a9706)
+
+![issue book](https://github.com/user-attachments/assets/06c27db7-6eeb-4ee4-a5e1-b14d650034e8)
+
+![add new member](https://github.com/user-attachments/assets/78184377-a7cf-4917-a47f-b0348dec4b9c)
+
+![update book info](https://github.com/user-attachments/assets/bbb7439d-1f05-4636-a719-b5e862ef6f5d)
 
 ---
-
 ## 🧑‍💻 Technologies Used
 
 | Technology   | Purpose                      |
