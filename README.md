@@ -21,10 +21,10 @@ A standalone, full-featured **desktop app** built with Python (Tkinter) for mana
 
 ## 🖼️ Screenshots
 
-> 📌 Upload screenshots to `/images/screenshots/` and embed them like:
+![Login Page](https://github.com/user-attachments/assets/a02617f7-6eb2-492b-a622-fa70da7cb1af)
 
-![Login Page](images/screenshots/login.png)
-![Dashboard](images/screenshots/dashboard.png)
+![Dashboard](https://github.com/user-attachments/assets/89988977-6578-4a5c-8dfb-6f07c323a498)
+
 
 ---
 
